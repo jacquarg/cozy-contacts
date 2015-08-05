@@ -38,14 +38,13 @@ getImports = (callback) ->
         if webDavAccount?
             webDavAccount.domain = instance?.domain or ''
 
-        callback null, """
-            window.config = #{JSON.stringify(config)};
-            window.locale = "#{locale}";
-            window.initcontacts = #{JSON.stringify(contacts)};
-            window.tags = #{JSON.stringify(tags)};
-            window.webDavAccount = #{JSON.stringify webDavAccount};
-            window.inittags = #{JSON.stringify(tagInstances)}
-        """
+        callback null,
+            config:        config
+            locale:        locale
+            initcontacts:  contacts
+            tags:          tags
+            webDavAccount: webDavAccount
+            inittags:      tagInstances
 
 
 module.exports =
@@ -56,7 +55,7 @@ module.exports =
 
             extension = getTemplateExtension()
 
-            res.render "index.#{extension}", imports: imports
+            res.render "index.#{extension}", imports: JSON.stringify(imports)
 
 
     setConfig: (req, res) ->
