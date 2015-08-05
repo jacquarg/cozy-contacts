@@ -55,7 +55,9 @@ module.exports =
 
             extension = getTemplateExtension()
 
-            res.render "index.#{extension}", imports: JSON.stringify(imports)
+            res.render "index.#{extension}",
+                imports: JSON.stringify(imports)
+                locale:  imports.locale
 
 
     setConfig: (req, res) ->
