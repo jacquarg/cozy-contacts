@@ -19,8 +19,9 @@
 
     [role=gridcell]
         flex 3
-        white-space nowrap
         margin 0 .5em
+
+        white-space nowrap
 
         &.name
             flex 4
@@ -29,6 +30,9 @@
 
             @media (max-width: (360/16)rem)
                 margin-left 0
+
+            .initials
+                flex-shrink 0
 
         &.phones
             flex 2
