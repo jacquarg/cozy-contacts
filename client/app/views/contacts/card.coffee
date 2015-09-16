@@ -28,7 +28,7 @@ module.exports = class ContactCardView extends Mn.LayoutView
         edit:     '.edit'
         submit:   '[type=submit]'
         cancel:   '.cancel'
-        inputs:   'input, textarea'
+        inputs:   ':input:not(button)'
         add:      '.add button'
         clear:    '.clear'
 
@@ -43,9 +43,13 @@ module.exports = class ContactCardView extends Mn.LayoutView
         'before:save':     'syncDatapoints'
         'save':            -> @triggerMethod 'dialog:close'
 
+    childEvents:
+        'form:enter': 'jumpToNextField'
+
 
     initialize: ->
         @model.attachViewEvents @
+        @listenTo @, 'form:enter', @jumpToNextField
 
 
     serializeData: ->
@@ -73,8 +77,9 @@ module.exports = class ContactCardView extends Mn.LayoutView
                 @getRegion('xtras').currentView.addEmptyField type
 
 
-    onShow: ->
-        @ui.edit.focus()
+    onDomRefresh: ->
+        if @model.get('edit') then @ui.inputs.first().focus()
+        else @ui.edit.focus()
 
 
     updateInitials: (model, value) ->
@@ -87,3 +92,8 @@ module.exports = class ContactCardView extends Mn.LayoutView
             name       = region.currentView.options.name
             datapoints = region.currentView.getDatapoints()
             @model.syncDatapoints name, datapoints
+
+
+    jumpToNextField: ->
+        inputs = @$ ':input:not(button):not([type=hidden])'
+        inputs.eq(inputs.index(document.activeElement) + 1).focus()
