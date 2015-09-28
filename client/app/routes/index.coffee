@@ -16,7 +16,7 @@ module.exports = class Router extends Backbone.Router
 
     initialize: ->
         # we initialize sub-routers only when app starts to prevent a bug that
-        # crashes subrouters if they are loaded bafore Backbone.History is
+        # crashes subrouters if they are loaded before Backbone.History is
         # started (in `app:before:start` event).
         #
         # see https://github.com/BackboneSubroute/backbone.subroute/issues/3

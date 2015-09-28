@@ -38,3 +38,8 @@ module.exports = class Contact extends Backbone.Model
             options.attrs.url = mainUrl.value
 
         super
+
+    # TODO !
+    toJSON: ->
+        _.extend {}, super, datapoints: @attributes.datapoints.toJSON()
+
