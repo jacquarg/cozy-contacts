@@ -115,7 +115,6 @@ module.exports = class ContactViewModel extends Backbone.ViewModel
                     setTimeout =>
                         @unset 'avatar'
                         @model.fetch()
-                        console.log @model.toJSON()
                     , 500
 
 
